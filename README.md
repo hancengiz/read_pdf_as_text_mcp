@@ -12,9 +12,24 @@ A Model Context Protocol (MCP) server that provides efficient PDF text extractio
 
 ## Installation
 
+### Option A: Install from npm (Recommended)
+
+```bash
+npm install -g @hancengiz/pdf-reader-mcp-server
+```
+
+After installation, the server will be available globally. You can configure it by running:
+
+```bash
+# The package will be installed in your global node_modules
+# Typically: /usr/local/lib/node_modules/@hancengiz/pdf-reader-mcp-server
+```
+
+### Option B: Install from source
+
 1. Clone this repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/hancengiz/read_pdf_as_text_mcp.git
 cd read_pdf_as_text_mcp
 ```
 
@@ -25,9 +40,46 @@ npm install
 
 ## Configuration
 
-There are three ways to configure this MCP server:
+### If installed via npm:
 
-### Option 1: Machine-Level (Recommended)
+Find your global npm installation path:
+```bash
+npm root -g
+# Example output: /usr/local/lib/node_modules
+```
+
+Then configure Claude Code by adding to `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "pdf-reader": {
+      "command": "node",
+      "args": [
+        "/usr/local/lib/node_modules/@hancengiz/pdf-reader-mcp-server/index.js"
+      ]
+    }
+  }
+}
+```
+
+**Or use the npm bin directly:**
+```json
+{
+  "mcpServers": {
+    "pdf-reader": {
+      "command": "npx",
+      "args": [
+        "@hancengiz/pdf-reader-mcp-server"
+      ]
+    }
+  }
+}
+```
+
+### If installed from source:
+
+#### Option 1: Machine-Level (Recommended)
 Add to your `~/.claude.json` file using the provided script:
 
 ```bash
@@ -36,7 +88,7 @@ python3 update_config.py
 
 This will automatically add the MCP server to your global configuration, making it available across all projects.
 
-### Option 2: Claude Desktop
+#### Option 2: Claude Desktop
 Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
 ```json
@@ -52,7 +104,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 }
 ```
 
-### Option 3: Project-Level
+#### Option 3: Project-Level
 Create a `.mcp.json` file in your project directory:
 
 ```json

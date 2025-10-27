@@ -1,23 +1,46 @@
 {
-  "name": "pdf-reader-mcp-server",
+  "name": "@hancengiz/pdf-reader-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server for reading PDF files as text efficiently",
+  "description": "MCP server for efficient PDF text extraction, search, and metadata retrieval for Claude Code",
   "type": "module",
   "main": "index.js",
   "bin": {
     "pdf-reader-mcp": "./index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node test-server.js"
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "pdf",
+    "pdf-reader",
     "text-extraction",
-    "claude"
+    "pdf-parse",
+    "claude",
+    "claude-code",
+    "ai",
+    "model-context-protocol"
   ],
-  "author": "",
+  "author": "Cengiz Han",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hancengiz/read_pdf_as_text_mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hancengiz/read_pdf_as_text_mcp/issues"
+  },
+  "homepage": "https://github.com/hancengiz/read_pdf_as_text_mcp#readme",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "update_config.py"
+  ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "pdf-parse": "^1.1.1"
