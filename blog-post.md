@@ -107,3 +107,5 @@ If it doesn't work or you have ideas, hit up the GitHub. PRs welcome.
 *P.S. Yes, I used Claude Code to build a tool that makes Claude Code better at PDFs. Meta, I know. 😄*
 
 *P.P.S. The whole thing took less than an hour. MCP servers are ridiculously easy to build. You should try making one for your own annoying problem.*
+
+*P.P.P.S. This blog post itself was written with Claude Code in the same coding session - [9 prompts to get it right](https://github.com/hancengiz/read_pdf_as_text_mcp/blob/main/blog-post.md). The irony continues.*
