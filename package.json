@@ -1,6 +1,6 @@
 {
   "name": "@hancengiz/pdf-reader-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for efficient PDF text extraction, search, and metadata retrieval for Claude Code",
   "type": "module",
   "main": "index.js",
