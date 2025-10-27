@@ -1,6 +1,10 @@
-# Introducing PDF Reader MCP Server: Efficient PDF Analysis for Claude Code
+# I Vibe-Coded a PDF Reader for Claude Code (In Under an Hour)
 
-I'm excited to announce the release of **PDF Reader MCP Server**, a new Model Context Protocol server that makes working with PDF files in Claude Code dramatically more efficient.
+So I got annoyed and built something. Again.
+
+Last week I was trying to analyze yet another massive McKinsey report with Claude, watching my precious context window evaporate, and I thought: "there has to be a better way."
+
+An hour of vibe-coding with Claude Code later, I had a working MCP server. Published it to npm. It's called **PDF Reader MCP Server** and it solves my exact problem.
 
 ## The Problem
 
@@ -14,9 +18,9 @@ But here's the thing: these PDFs are massive. Not just because of the content, b
 
 If you've ever tried to analyze these documents with Claude, you know the pain: you paste in the entire text, it consumes massive amounts of context, and you're left with fewer tokens for actual analysis. A single consulting report can eat up your entire context window before you even ask your first question.
 
-## The Solution
+## The Solution (That I Built in Like 45 Minutes)
 
-The PDF Reader MCP Server solves this by providing three specialized tools that let Claude work with PDFs intelligently:
+Three simple tools. That's it:
 
 ### 🔍 **search-pdf** - Find What You Need
 Search for specific terms or phrases within a PDF without loading the entire document. Get results with surrounding context, perfect for quickly locating relevant sections.
@@ -27,27 +31,24 @@ Extract text from PDFs with options for cleaning and formatting. Only read what 
 ### 📊 **pdf-metadata** - Document Intelligence
 Get instant access to PDF metadata: page count, author, creation date, and more. Perfect for understanding documents before diving in.
 
-## Why This Matters
+## Why This Actually Matters
 
-Instead of dumping entire PDFs into your context, you can now:
-- Search first, then read only relevant sections
-- Check metadata to understand document structure
-- Save massive amounts of context for actual analysis
-- Work with multiple large PDFs in a single session
+Look, I'm not trying to save the world here. I just wanted to stop wasting context tokens on formatting and images when all I need is to search some text and pull out insights.
 
-## Getting Started
+Now I can:
+- Search first, then read only what matters
+- Work with multiple consulting reports in one session
+- Actually have context left for analysis
+- Not lose my mind copying and pasting text
 
-Installation is simple:
+## Getting Started (Literally Two Commands)
 
 ```bash
-# Install globally via npm
 npm install -g @hancengiz/pdf-reader-mcp-server
-
-# Add to Claude Code (easiest method)
 claude mcp add pdf-reader npx @hancengiz/pdf-reader-mcp-server
 ```
 
-That's it! Restart Claude Code and you'll have access to all three PDF tools.
+Restart Claude Code. Done. You now have PDF superpowers.
 
 ## Real-World Example: My Actual Use Case
 
@@ -84,26 +85,28 @@ Remaining for analysis: 190,000+ tokens!
 
 The difference? I can now analyze multiple consulting reports in a single session, cross-reference findings, and still have plenty of context left to synthesize everything into a coherent blog post or education document.
 
-## The Technical Details
+## The Tech (For Those Who Care)
 
-Built on the Model Context Protocol SDK and using pdf-parse for extraction, the server runs locally and communicates with Claude via stdio. It's fast, secure, and works with any PDF that contains extractable text.
+MCP SDK + pdf-parse + some quick Node.js glue. Runs locally, talks to Claude via stdio. Nothing fancy, just works.
 
-The entire project is open source and available on:
+It's on npm and GitHub if you want to check it out or improve it:
 - **npm**: [@hancengiz/pdf-reader-mcp-server](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
 - **GitHub**: [hancengiz/read_pdf_as_text_mcp](https://github.com/hancengiz/read_pdf_as_text_mcp)
 
-## What's Next?
+## Should You Use This?
 
-I built this to scratch my own itch - I was constantly frustrated by context limitations when analyzing consulting research and other PDF documents. Whether you're:
-- A consultant or researcher working with industry reports
-- A content creator pulling insights for blog posts
-- An educator creating materials from various sources
-- Anyone who needs to work with large, heavily-formatted PDFs
+If you:
+- Analyze research PDFs regularly
+- Write blog posts using consulting reports as sources
+- Create educational materials from various PDF sources
+- Just want to search through PDFs without context pain
 
-...you'll probably find this as game-changing as I did.
+Then yeah, try it. It might save you as much frustration as it saved me.
 
-Try it out and let me know what you think! Issues, suggestions, and PRs are welcome on GitHub.
+If it doesn't work or you have ideas, hit up the GitHub. PRs welcome.
 
 ---
 
-*Built with Claude Code - yes, the irony of using Claude to build a tool that makes Claude better at handling PDFs is not lost on me. 😄*
+*P.S. Yes, I used Claude Code to build a tool that makes Claude Code better at PDFs. Meta, I know. 😄*
+
+*P.P.S. The whole thing took less than an hour. MCP servers are ridiculously easy to build. You should try making one for your own annoying problem.*
