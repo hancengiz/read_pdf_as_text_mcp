@@ -1,4 +1,4 @@
-# I Vibe-Coded a PDF Reader for Claude Code (In Under an Hour)
+# Vibe Coded a PDF Reader MCP Tool for Claude Code - to save my context
 
 So I got annoyed and built something. Again.
 
