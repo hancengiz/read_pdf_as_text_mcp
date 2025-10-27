@@ -64,9 +64,9 @@ Here's how I used it just last week with a McKinsey research report on AI adopti
 
 **The new way with PDF Reader MCP:**
 ```
-1. "Search for 'workflow redesign' in the PDF"
-   → Found 8 matches with surrounding context
-   → I can see exactly where the relevant sections are
+1. "Search for AI native engineering"
+   → Found 3 matches with surrounding context
+   → Exactly what I need for my blog post about engineering practices
 
 2. "Read the section about organizational changes for AI"
    → Extracts just that section, clean text
