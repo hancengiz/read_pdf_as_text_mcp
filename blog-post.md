@@ -74,7 +74,7 @@ Here's how I used it just last week with a McKinsey research report on AI adopti
 
 3. "Read the section about organizational changes for AI"
    → Extracts just that section, clean text
-   → I copy this insight for my blog post
+   → Perfect content for what I'm writing about
 
 4. "Search for statistics about AI adoption rates"
    → Found 12 mentions with data points
