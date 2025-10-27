@@ -64,21 +64,17 @@ Here's how I used it just last week with a McKinsey research report on AI adopti
 
 **The new way with PDF Reader MCP:**
 ```
-1. "What's the metadata for this McKinsey AI report?"
-   → 26 pages, March 2025
-   → Okay, manageable length. Let's dig in.
-
-2. "Search for 'workflow redesign' in the PDF"
+1. "Search for 'workflow redesign' in the PDF"
    → Found 8 matches with surrounding context
    → I can see exactly where the relevant sections are
 
-3. "Read the section about organizational changes for AI"
+2. "Read the section about organizational changes for AI"
    → Extracts just that section, clean text
    → Perfect content for what I'm writing about
 
-4. "Search for statistics about AI adoption rates"
+3. "Search for statistics about AI adoption rates"
    → Found 12 mentions with data points
-   → Perfect for my educational materials
+   → Now I can cite actual numbers in my post
 
 Context used: ~8,000 tokens
 Remaining for analysis: 190,000+ tokens!
