@@ -65,8 +65,8 @@ Here's how I used it just last week with a McKinsey research report on AI adopti
 **The new way with PDF Reader MCP:**
 ```
 1. "What's the metadata for this McKinsey AI report?"
-   → 26 pages, March 2025, Creator: Adobe InDesign
-   → Now I know what I'm working with
+   → 26 pages, March 2025
+   → Okay, manageable length. Let's dig in.
 
 2. "Search for 'workflow redesign' in the PDF"
    → Found 8 matches with surrounding context
