@@ -1,6 +1,11 @@
 # PDF Reader MCP Server
 
+[![npm version](https://badge.fury.io/js/@hancengiz%2Fpdf-reader-mcp-server.svg)](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
+[![npm downloads](https://img.shields.io/npm/dm/@hancengiz/pdf-reader-mcp-server.svg)](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
+
 A Model Context Protocol (MCP) server that provides efficient PDF text extraction capabilities for Claude Code. This server allows you to read, search, and extract metadata from PDF files without loading the entire content into Claude's context window.
+
+**npm package**: [@hancengiz/pdf-reader-mcp-server](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
 
 ## Features
 
