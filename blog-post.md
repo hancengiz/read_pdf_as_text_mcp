@@ -41,14 +41,15 @@ Now I can:
 - Actually have context left for analysis
 - Not lose my mind copying and pasting text
 
-## Getting Started (Literally Two Commands)
+## Getting Started (Literally One Command)
 
 ```bash
-npm install -g @hancengiz/pdf-reader-mcp-server
 claude mcp add pdf-reader npx @hancengiz/pdf-reader-mcp-server
 ```
 
 Restart Claude Code. Done. You now have PDF superpowers.
+
+(No npm install needed - `npx` handles it automatically. Magic.)
 
 ## Real-World Example: My Actual Use Case
 
