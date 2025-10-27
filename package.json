@@ -1,0 +1,25 @@
+{
+  "name": "pdf-reader-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for reading PDF files as text efficiently",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "pdf-reader-mcp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "pdf",
+    "text-extraction",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "pdf-parse": "^1.1.1"
+  }
+}
