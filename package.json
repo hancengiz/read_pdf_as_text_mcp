@@ -39,7 +39,7 @@
   "files": [
     "index.js",
     "README.md",
-    "update_config.py"
+    "update-config.js"
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",

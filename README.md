@@ -47,7 +47,17 @@ npm install
 
 ### If installed via npm (Recommended):
 
-Configure Claude Code by adding to `~/.claude.json`:
+#### Option 1: Using Claude Code CLI (Easiest)
+```bash
+# Add the MCP server
+claude mcp add pdf-reader npx @hancengiz/pdf-reader-mcp-server
+
+# Or use the convenience script
+npx @hancengiz/pdf-reader-mcp-server/update-config.js
+```
+
+#### Option 2: Manual Configuration
+Add to your `~/.claude.json`:
 
 ```json
 {
@@ -64,19 +74,24 @@ Configure Claude Code by adding to `~/.claude.json`:
 
 This uses `npx` to automatically run the globally installed package without needing to specify paths.
 
-### If installed from source:
+### Quick Setup Script (Optional):
 
-#### Option 1: Machine-Level (Recommended)
-Add to your `~/.claude.json` file using the provided script:
+After installing via npm, you can use the included configuration script to automatically update your `~/.claude.json`:
 
 ```bash
-python3 update_config.py
+npx @hancengiz/pdf-reader-mcp-server/update-config.js
 ```
 
-This will automatically add the MCP server to your global configuration, making it available across all projects.
+Or if installed from source:
+```bash
+node update-config.js
+```
 
-#### Option 2: Claude Desktop
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+This will automatically add the MCP server using `npx`, making it available machine-wide across all your projects.
+
+### Manual Configuration:
+
+For **Claude Desktop**, edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
 ```json
 {
@@ -90,8 +105,6 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
   }
 }
 ```
-
-If you installed from source, run the `update_config.py` script which will automatically detect and configure the correct path.
 
 ## Usage
 
