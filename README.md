@@ -45,30 +45,10 @@ npm install
 
 ## Configuration
 
-### If installed via npm:
+### If installed via npm (Recommended):
 
-Find your global npm installation path:
-```bash
-npm root -g
-# Example output: /usr/local/lib/node_modules
-```
+Configure Claude Code by adding to `~/.claude.json`:
 
-Then configure Claude Code by adding to `~/.claude.json`:
-
-```json
-{
-  "mcpServers": {
-    "pdf-reader": {
-      "command": "node",
-      "args": [
-        "/usr/local/lib/node_modules/@hancengiz/pdf-reader-mcp-server/index.js"
-      ]
-    }
-  }
-}
-```
-
-**Or use the npm bin directly:**
 ```json
 {
   "mcpServers": {
@@ -81,6 +61,8 @@ Then configure Claude Code by adding to `~/.claude.json`:
   }
 }
 ```
+
+This uses `npx` to automatically run the globally installed package without needing to specify paths.
 
 ### If installed from source:
 
@@ -100,32 +82,16 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 {
   "mcpServers": {
     "pdf-reader": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "/absolute/path/to/read_pdf_as_text_mcp/index.js"
+        "@hancengiz/pdf-reader-mcp-server"
       ]
     }
   }
 }
 ```
 
-#### Option 3: Project-Level
-Create a `.mcp.json` file in your project directory:
-
-```json
-{
-  "mcpServers": {
-    "pdf-reader": {
-      "command": "node",
-      "args": [
-        "/absolute/path/to/read_pdf_as_text_mcp/index.js"
-      ]
-    }
-  }
-}
-```
-
-**Important**: Replace `/absolute/path/to/read_pdf_as_text_mcp/index.js` with the actual absolute path where you installed this server.
+If you installed from source, run the `update_config.py` script which will automatically detect and configure the correct path.
 
 ## Usage
 
