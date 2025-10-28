@@ -145,13 +145,7 @@ git commit -m "Add feature: [description]
 
 - Specific change 1
 - Specific change 2
-- Run tests: all passing
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-via [Happy](https://happy.engineering)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-Co-Authored-By: Happy <yesreply@happy.engineering>"
+- Run tests: all passing"
 ```
 
 **Before committing:** Run `npm test` one final time.
