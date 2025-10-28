@@ -52,7 +52,7 @@ npm install
 #### Option 1: Using Claude Code CLI (Easiest)
 ```bash
 # Add the MCP server
-claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp
+claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp@latest
 
 # Or use the convenience script
 npx @fabriqa.ai/pdf-reader-mcp/update-config.js
@@ -67,7 +67,7 @@ Add to your `~/.claude.json`:
     "pdf-reader": {
       "command": "npx",
       "args": [
-        "@fabriqa.ai/pdf-reader-mcp"
+        "@fabriqa.ai/pdf-reader-mcp@latest"
       ]
     }
   }
@@ -101,7 +101,7 @@ For **Claude Desktop**, edit `~/Library/Application Support/Claude/claude_deskto
     "pdf-reader": {
       "command": "npx",
       "args": [
-        "@fabriqa.ai/pdf-reader-mcp"
+        "@fabriqa.ai/pdf-reader-mcp@latest"
       ]
     }
   }

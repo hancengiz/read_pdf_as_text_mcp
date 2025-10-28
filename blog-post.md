@@ -44,12 +44,12 @@ Now I can:
 ## Getting Started (Literally One Command)
 
 ```bash
-claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp
+claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp@latest
 ```
 
 Restart Claude Code. Done. You now have PDF superpowers.
 
-(No npm install needed - `npx` handles it automatically. Magic.)
+(No npm install needed - `npx` handles it automatically and always fetches the latest version. Magic.)
 
 ## Real-World Example: My Actual Use Case
 
