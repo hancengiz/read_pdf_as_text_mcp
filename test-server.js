@@ -26,13 +26,14 @@ const ajv = new Ajv({
 addFormats(ajv);
 
 /**
- * Validate that a schema is a valid JSON Schema draft-07
+ * Validate that a schema is a valid JSON Schema for Claude API
+ * Note: Claude API requires schemas WITHOUT $schema field
  */
 function validateSchemaCompliance(toolName, schema) {
   console.log(`\nValidating schema compliance for: ${toolName}`);
 
-  // Check required fields
-  const requiredFields = ['$schema', 'type', 'properties', 'required'];
+  // Check required fields (Claude API doesn't want $schema)
+  const requiredFields = ['type', 'properties', 'required'];
   const missingFields = requiredFields.filter(field => !(field in schema));
 
   if (missingFields.length > 0) {
@@ -40,28 +41,17 @@ function validateSchemaCompliance(toolName, schema) {
     return false;
   }
 
-  // Check $schema value
-  const validSchemaVersions = [
-    'http://json-schema.org/draft-07/schema#',
-    'https://json-schema.org/draft-07/schema#',
-  ];
-
-  if (!validSchemaVersions.includes(schema.$schema)) {
-    console.error(`✗ Invalid $schema value: ${schema.$schema}`);
-    console.error(`   Expected one of: ${validSchemaVersions.join(', ')}`);
+  // Validate no $schema field (Claude API rejects it)
+  if ('$schema' in schema) {
+    console.error(`✗ Schema should NOT include $schema field for Claude API`);
     return false;
   }
 
   // Validate the schema itself is valid JSON Schema
   try {
-    const metaSchema = {
-      $schema: "http://json-schema.org/draft-07/schema#",
-      type: "object",
-    };
-
     // Try to compile the schema with ajv
     ajv.compile(schema);
-    console.log(`✓ Schema is valid JSON Schema draft-07`);
+    console.log(`✓ Schema is valid for Claude API`);
     return true;
   } catch (error) {
     console.error(`✗ Schema validation failed: ${error.message}`);
