@@ -52,7 +52,7 @@ Every tool `inputSchema` must include:
 
 ```javascript
 {
-  // NOTE: Do NOT include $schema field - Claude API rejects it!
+  $schema: "https://json-schema.org/draft/2020-12/schema",  // REQUIRED for Claude API!
   type: "object",
   properties: { /* ... */ },
   required: [ /* ... */ ],
@@ -60,13 +60,13 @@ Every tool `inputSchema` must include:
 }
 ```
 
-**IMPORTANT:** Claude API requires schemas **WITHOUT** the `$schema` field. Including it will cause a 400 error.
+**IMPORTANT:** Claude API now requires schemas **WITH** the `$schema` field set to draft 2020-12. Missing it will cause a 400 error.
 
 #### Validation Checks
 
 1. **Schema Metadata**
-   - `$schema` field must **NOT** be present (Claude API rejects it)
-   - MCP protocol uses JSON Schema but without version declaration in individual schemas
+   - `$schema` field **MUST** be present and set to `"https://json-schema.org/draft/2020-12/schema"`
+   - MCP protocol now requires explicit JSON Schema version declaration
 
 2. **Schema Structure**
    - `type` must be defined (typically "object")
@@ -89,8 +89,8 @@ const ajv = new Ajv({
 addFormats(ajv);     // Add format validators (uri, email, etc.)
 
 function validateSchemaCompliance(toolName, schema) {
-  // 1. Check required fields exist (NO $schema field for Claude API)
-  const requiredFields = ['type', 'properties', 'required'];
+  // 1. Check required fields exist (MUST include $schema field for Claude API)
+  const requiredFields = ['$schema', 'type', 'properties', 'required'];
   const missingFields = requiredFields.filter(field => !(field in schema));
 
   if (missingFields.length > 0) {
@@ -98,16 +98,25 @@ function validateSchemaCompliance(toolName, schema) {
     return false;
   }
 
-  // 2. Validate NO $schema field (Claude API rejects it)
-  if ('$schema' in schema) {
-    console.error(`✗ Schema should NOT include $schema field for Claude API`);
+  // 2. Validate $schema field value
+  const validSchemaUrls = [
+    'https://json-schema.org/draft/2020-12/schema',
+    'http://json-schema.org/draft-07/schema#'  // Backwards compatibility
+  ];
+
+  if (!validSchemaUrls.includes(schema.$schema)) {
+    console.error(`✗ Invalid $schema value. Expected: ${validSchemaUrls[0]}`);
     return false;
   }
 
   // 3. Validate schema compiles
   try {
-    ajv.compile(schema);
-    console.log(`✓ Schema is valid for Claude API`);
+    // For draft 2020-12, Claude API validates it
+    // For draft-07, use Ajv
+    if (schema.$schema !== 'https://json-schema.org/draft/2020-12/schema') {
+      ajv.compile(schema);
+    }
+    console.log(`✓ Schema is valid for Claude API (using ${schema.$schema})`);
     return true;
   } catch (error) {
     console.error(`✗ Schema validation failed: ${error.message}`);
@@ -151,12 +160,18 @@ assert(result.content[0].type === "text");
 
 ## Common Compliance Issues
 
-### Issue 1: Including `$schema` Field
+### Issue 1: Missing or Wrong `$schema` Field
 
 **Problem:**
 ```javascript
 inputSchema: {
-  $schema: "http://json-schema.org/draft-07/schema#",  // ❌ Claude API rejects this
+  // ❌ Missing $schema field
+  type: "object",
+  properties: { /* ... */ }
+}
+// OR
+inputSchema: {
+  $schema: "http://json-schema.org/draft-07/schema#",  // ❌ Wrong version
   type: "object",
   properties: { /* ... */ }
 }
@@ -170,7 +185,7 @@ tools.X.custom.input_schema: JSON schema is invalid. It must match JSON Schema d
 **Solution:**
 ```javascript
 inputSchema: {
-  // ✓ NO $schema field
+  $schema: "https://json-schema.org/draft/2020-12/schema",  // ✓ Required!
   type: "object",
   properties: { /* ... */ }
 }
@@ -382,7 +397,7 @@ Since `default` isn't reliably enforced, document defaults in descriptions:
 
 ```javascript
 {
-  // No $schema field for Claude API
+  $schema: "https://json-schema.org/draft/2020-12/schema",  // Required
   type: "object",
   additionalProperties: false,  // Reject unknown properties
   required: ["mandatory-field"]  // List all required fields
@@ -437,7 +452,7 @@ If you need to make breaking changes:
 
 **Check:**
 - Run test suite: `npm test`
-- Ensure NO `$schema` field is present
+- Ensure `$schema` field is present and correct
 - Verify all property types are valid
 - Check `required` array matches property names
 
@@ -445,7 +460,7 @@ If you need to make breaking changes:
 
 **Check:**
 - Does test suite pass? `npm test`
-- Remove any `$schema` field (Claude API rejects it)
+- Add `$schema: "https://json-schema.org/draft/2020-12/schema"` field
 - Remove `default` keywords
 - Add `additionalProperties: false`
 
@@ -487,24 +502,24 @@ jobs:
 ### Known Issues and Community Solutions
 - [Issue #9605: Invalid JSON Schema for Tool Input](https://github.com/anthropics/claude-code/issues/9605) - Reports the exact error: "tools.X.custom.input_schema: JSON schema is invalid. It must match JSON Schema draft 2020-12"
 - [Issue #10030: MCP Tool Parsing with anyOf Schemas](https://github.com/anthropics/claude-code/issues/10030) - Discusses schema validation issues with Union types
-- Note: Claude API requires schemas WITHOUT `$schema` field despite error messages mentioning "draft 2020-12"
+- Note: Claude API requires schemas WITH `$schema: "https://json-schema.org/draft/2020-12/schema"` field
 
 ## Summary
 
 A complete MCP server test suite should:
 
 1. ✓ Test MCP protocol connection
-2. ✓ Validate schema compliance (NO `$schema` field for Claude API)
+2. ✓ Validate schema compliance (MUST include `$schema` field for Claude API)
 3. ✓ Verify tool discovery
 4. ✓ Test functional behavior with real data
 5. ✓ Handle errors gracefully
 6. ✓ Work with multiple MCP clients (Claude Code, Claude Desktop, etc.)
 
 **Key Takeaways:**
-- Claude API requires schemas **WITHOUT** the `$schema` field
+- Claude API requires schemas **WITH** the `$schema: "https://json-schema.org/draft/2020-12/schema"` field
 - Use `additionalProperties: false` for strict validation
 - Document default values in `description` fields, not with `default` keyword
 - Test with actual data files (like sample.pdf) to validate end-to-end functionality
-- MCP protocol uses JSON Schema format but without explicit version declarations
+- MCP protocol now requires explicit JSON Schema draft 2020-12 version declarations
 
 By following these guidelines, your MCP server will be compatible with Claude Code, Claude Desktop, and any other MCP-enabled system.

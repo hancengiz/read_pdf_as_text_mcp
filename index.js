@@ -52,6 +52,7 @@ class PDFReaderServer {
           description:
             "Extract text from a PDF file. Returns the full text content of the PDF with optional page filtering and text cleaning.",
           inputSchema: {
+            $schema: "https://json-schema.org/draft/2020-12/schema",
             type: "object",
             properties: {
               file: {
@@ -81,6 +82,7 @@ class PDFReaderServer {
           description:
             "Search for specific text within a PDF file. Returns matching text with context and page numbers.",
           inputSchema: {
+            $schema: "https://json-schema.org/draft/2020-12/schema",
             type: "object",
             properties: {
               file: {
@@ -109,6 +111,7 @@ class PDFReaderServer {
           description:
             "Extract metadata from a PDF file including title, author, page count, creation date, etc.",
           inputSchema: {
+            $schema: "https://json-schema.org/draft/2020-12/schema",
             type: "object",
             properties: {
               file: {

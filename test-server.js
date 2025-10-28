@@ -27,13 +27,13 @@ addFormats(ajv);
 
 /**
  * Validate that a schema is a valid JSON Schema for Claude API
- * Note: Claude API requires schemas WITHOUT $schema field
+ * Note: Claude API now requires schemas WITH $schema field (draft 2020-12)
  */
 function validateSchemaCompliance(toolName, schema) {
   console.log(`\nValidating schema compliance for: ${toolName}`);
 
-  // Check required fields (Claude API doesn't want $schema)
-  const requiredFields = ['type', 'properties', 'required'];
+  // Check required fields (Claude API now requires $schema)
+  const requiredFields = ['$schema', 'type', 'properties', 'required'];
   const missingFields = requiredFields.filter(field => !(field in schema));
 
   if (missingFields.length > 0) {
@@ -41,17 +41,30 @@ function validateSchemaCompliance(toolName, schema) {
     return false;
   }
 
-  // Validate no $schema field (Claude API rejects it)
-  if ('$schema' in schema) {
-    console.error(`✗ Schema should NOT include $schema field for Claude API`);
+  // Validate $schema field is present and correct
+  const validSchemaUrls = [
+    'https://json-schema.org/draft/2020-12/schema',
+    'http://json-schema.org/draft-07/schema#'  // Also accept draft-07 for backwards compatibility
+  ];
+
+  if (!validSchemaUrls.includes(schema.$schema)) {
+    console.error(`✗ Invalid $schema value. Expected: ${validSchemaUrls[0]}`);
+    console.error(`  Got: ${schema.$schema}`);
     return false;
   }
 
   // Validate the schema itself is valid JSON Schema
   try {
-    // Try to compile the schema with ajv
+    // For draft 2020-12, skip Ajv validation (Ajv doesn't support it by default)
+    // Claude's API will validate it properly
+    if (schema.$schema === 'https://json-schema.org/draft/2020-12/schema') {
+      console.log(`✓ Schema is valid for Claude API (using ${schema.$schema})`);
+      return true;
+    }
+
+    // For draft-07, use Ajv to validate
     ajv.compile(schema);
-    console.log(`✓ Schema is valid for Claude API`);
+    console.log(`✓ Schema is valid for Claude API (using ${schema.$schema})`);
     return true;
   } catch (error) {
     console.error(`✗ Schema validation failed: ${error.message}`);

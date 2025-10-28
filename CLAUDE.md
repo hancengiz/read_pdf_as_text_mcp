@@ -31,7 +31,7 @@ When modifying or adding tool schemas in `index.js`, ALL schemas MUST include:
 
 ```javascript
 inputSchema: {
-  $schema: "http://json-schema.org/draft-07/schema#",  // REQUIRED!
+  $schema: "https://json-schema.org/draft/2020-12/schema",  // REQUIRED!
   type: "object",
   properties: {
     // ... your properties
@@ -43,6 +43,7 @@ inputSchema: {
 
 **Common mistakes to avoid:**
 - ❌ Missing `$schema` field → causes Claude API errors
+- ❌ Using wrong schema version (must be draft 2020-12, not draft-07)
 - ❌ Using `default` keyword → not validated, document in description instead
 - ❌ Invalid property types (use "integer" not "int", "string" not "str")
 - ❌ Missing `additionalProperties: false` → allows unexpected parameters
@@ -85,7 +86,7 @@ If compliance tests fail:
   name: "new-tool",
   description: "Clear description of what this tool does",
   inputSchema: {
-    $schema: "http://json-schema.org/draft-07/schema#",  // Don't forget!
+    $schema: "https://json-schema.org/draft/2020-12/schema",  // Don't forget!
     type: "object",
     properties: {
       param1: {
@@ -240,7 +241,7 @@ npm test  # Look for "✗ Schema compliance check FAILED"
 # 2. Check the error message
 # Common issues:
 # - "Missing required fields: $schema" → Add $schema field
-# - "Invalid $schema value" → Use draft-07 URL
+# - "Invalid $schema value" → Use draft 2020-12 URL
 # - "Schema validation failed" → Check property types
 
 # 3. Fix the schema in index.js
@@ -319,7 +320,7 @@ cc
 
 ## Schema Validation Reference
 
-### Valid JSON Schema Draft-07 Types
+### Valid JSON Schema Draft 2020-12 Types
 
 ```javascript
 type: "string"     // Text
@@ -380,7 +381,7 @@ If you see this in Claude Code:
 API Error: 400 tools.X.custom.input_schema: JSON schema is invalid
 ```
 
-**This means:** Schema is not JSON Schema draft-07 compliant
+**This means:** Schema is not JSON Schema draft 2020-12 compliant
 **Action:** Run `npm test` and fix failing schemas
 
 ### MCP Protocol Errors
