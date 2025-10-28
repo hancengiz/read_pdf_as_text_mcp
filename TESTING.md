@@ -485,7 +485,8 @@ jobs:
 - [JSON Schema Documentation](https://json-schema.org/) - General JSON Schema reference
 
 ### Known Issues and Community Solutions
-- [Claude Code GitHub Issues - JSON Schema](https://github.com/anthropics/claude-code/issues?q=is%3Aissue+json+schema) - Community reported schema validation issues
+- [Issue #9605: Invalid JSON Schema for Tool Input](https://github.com/anthropics/claude-code/issues/9605) - Reports the exact error: "tools.X.custom.input_schema: JSON schema is invalid. It must match JSON Schema draft 2020-12"
+- [Issue #10030: MCP Tool Parsing with anyOf Schemas](https://github.com/anthropics/claude-code/issues/10030) - Discusses schema validation issues with Union types
 - Note: Claude API requires schemas WITHOUT `$schema` field despite error messages mentioning "draft 2020-12"
 
 ## Summary
