@@ -8,7 +8,16 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 import pdfParse from "pdf-parse";
+
+// Get package.json path for version info
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const packageJson = JSON.parse(
+  await fs.readFile(path.join(__dirname, "package.json"), "utf-8")
+);
+const VERSION = packageJson.version;
 
 /**
  * MCP Server for PDF Text Extraction
@@ -19,7 +28,7 @@ class PDFReaderServer {
     this.server = new Server(
       {
         name: "pdf-reader-mcp-server",
-        version: "1.0.0",
+        version: VERSION,
       },
       {
         capabilities: {
@@ -334,7 +343,7 @@ class PDFReaderServer {
   async start() {
     const transport = new StdioServerTransport();
     await this.server.connect(transport);
-    console.error("PDF Reader MCP Server running on stdio");
+    console.error(`PDF Reader MCP Server v${VERSION} running on stdio`);
   }
 }
 
