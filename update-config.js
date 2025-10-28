@@ -19,7 +19,7 @@ async function updateConfig() {
 
     config.mcpServers['pdf-reader'] = {
       command: 'npx',
-      args: ['@hancengiz/pdf-reader-mcp-server']
+      args: ['@fabriqa.ai/pdf-reader-mcp']
     };
 
     // Write back the updated config
@@ -28,7 +28,7 @@ async function updateConfig() {
     console.log('✅ Successfully updated pdf-reader MCP server in ~/.claude.json');
     console.log('\nConfiguration:');
     console.log('  command: npx');
-    console.log('  args: @hancengiz/pdf-reader-mcp-server');
+    console.log('  args: @fabriqa.ai/pdf-reader-mcp');
     console.log('\nMCP Servers configured:');
     for (const serverName in config.mcpServers) {
       console.log(`  - ${serverName}`);

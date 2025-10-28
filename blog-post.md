@@ -44,7 +44,7 @@ Now I can:
 ## Getting Started (Literally One Command)
 
 ```bash
-claude mcp add pdf-reader npx @hancengiz/pdf-reader-mcp-server
+claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp
 ```
 
 Restart Claude Code. Done. You now have PDF superpowers.
@@ -87,7 +87,7 @@ The difference? I can now analyze multiple consulting reports in a single sessio
 MCP SDK + pdf-parse + some quick Node.js glue. Runs locally, talks to Claude via stdio. Nothing fancy, just works.
 
 It's on npm and GitHub if you want to check it out or improve it:
-- **npm**: [@hancengiz/pdf-reader-mcp-server](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
+- **npm**: [@fabriqa.ai/pdf-reader-mcp](https://www.npmjs.com/package/@fabriqa.ai/pdf-reader-mcp)
 - **GitHub**: [hancengiz/read_pdf_as_text_mcp](https://github.com/hancengiz/read_pdf_as_text_mcp)
 
 ## Should You Use This?

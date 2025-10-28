@@ -1,12 +1,13 @@
 # PDF Reader MCP Server
 
-[![npm version](https://badge.fury.io/js/@hancengiz%2Fpdf-reader-mcp-server.svg)](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
-[![npm downloads](https://img.shields.io/npm/dm/@hancengiz/pdf-reader-mcp-server.svg)](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
+[![npm version](https://badge.fury.io/js/@fabriqa.ai%2Fpdf-reader-mcp.svg)](https://www.npmjs.com/package/@fabriqa.ai/pdf-reader-mcp)
+[![npm downloads](https://img.shields.io/npm/dm/@fabriqa.ai/pdf-reader-mcp.svg)](https://www.npmjs.com/package/@fabriqa.ai/pdf-reader-mcp)
 
 A Model Context Protocol (MCP) server that provides efficient PDF text extraction capabilities for Claude Code. This server allows you to read, search, and extract metadata from PDF files without loading the entire content into Claude's context window.
 
-**npm package**: [@hancengiz/pdf-reader-mcp-server](https://www.npmjs.com/package/@hancengiz/pdf-reader-mcp-server)
+**npm package**: [@fabriqa.ai/pdf-reader-mcp](https://www.npmjs.com/package/@fabriqa.ai/pdf-reader-mcp)
 **Author**: [Cengiz Han](https://cengizhan.com)
+**Blog Post**: [How I Built This Tool to Save My Context](https://www.cengizhan.com/p/vibe-coded-a-pdf-reader-mcp-tool)
 
 ## Features
 
@@ -21,14 +22,14 @@ A Model Context Protocol (MCP) server that provides efficient PDF text extractio
 ### Option A: Install from npm (Recommended)
 
 ```bash
-npm install -g @hancengiz/pdf-reader-mcp-server
+npm install -g @fabriqa.ai/pdf-reader-mcp
 ```
 
 After installation, the server will be available globally. You can configure it by running:
 
 ```bash
 # The package will be installed in your global node_modules
-# Typically: /usr/local/lib/node_modules/@hancengiz/pdf-reader-mcp-server
+# Typically: /usr/local/lib/node_modules/@fabriqa.ai/pdf-reader-mcp
 ```
 
 ### Option B: Install from source
@@ -51,10 +52,10 @@ npm install
 #### Option 1: Using Claude Code CLI (Easiest)
 ```bash
 # Add the MCP server
-claude mcp add pdf-reader npx @hancengiz/pdf-reader-mcp-server
+claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp
 
 # Or use the convenience script
-npx @hancengiz/pdf-reader-mcp-server/update-config.js
+npx @fabriqa.ai/pdf-reader-mcp/update-config.js
 ```
 
 #### Option 2: Manual Configuration
@@ -66,7 +67,7 @@ Add to your `~/.claude.json`:
     "pdf-reader": {
       "command": "npx",
       "args": [
-        "@hancengiz/pdf-reader-mcp-server"
+        "@fabriqa.ai/pdf-reader-mcp"
       ]
     }
   }
@@ -80,7 +81,7 @@ This uses `npx` to automatically run the globally installed package without need
 After installing via npm, you can use the included configuration script to automatically update your `~/.claude.json`:
 
 ```bash
-npx @hancengiz/pdf-reader-mcp-server/update-config.js
+npx @fabriqa.ai/pdf-reader-mcp/update-config.js
 ```
 
 Or if installed from source:
@@ -100,7 +101,7 @@ For **Claude Desktop**, edit `~/Library/Application Support/Claude/claude_deskto
     "pdf-reader": {
       "command": "npx",
       "args": [
-        "@hancengiz/pdf-reader-mcp-server"
+        "@fabriqa.ai/pdf-reader-mcp"
       ]
     }
   }
