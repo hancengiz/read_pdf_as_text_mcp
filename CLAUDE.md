@@ -150,9 +150,19 @@ git commit -m "Add feature: [description]
 
 **Before committing:** Run `npm test` one final time.
 
-### 9. Publishing to npm
+### 9. Git Push and npm Publishing Protocol
 
-**After pushing changes to git, ALWAYS ask the user if they want to publish to npm.**
+**CRITICAL WORKFLOW - NEVER SKIP:**
+
+#### After Any Git Commit:
+
+1. **ALWAYS ask user before pushing to git**: "Would you like me to push these changes to git?"
+2. **If user approves push**: Execute `git push`
+3. **IMMEDIATELY after successful push**: ALWAYS ask "Would you like me to publish this to npm?"
+
+**This is MANDATORY. Never skip asking about npm publish after a git push.**
+
+#### Publishing to npm
 
 Use the provided publish script:
 
@@ -203,7 +213,9 @@ Use this checklist for every change:
 - [ ] Verified actual PDF content is extracted correctly
 - [ ] Updated documentation if needed
 - [ ] Committed changes with clear message
-- [ ] Pushed to remote repository
+- [ ] **ASKED USER** before pushing to git
+- [ ] Pushed to remote repository (if user approved)
+- [ ] **ASKED USER** if they want to publish to npm (MANDATORY after every push)
 
 ## Sample PDF Requirement
 
