@@ -21,7 +21,9 @@ node test-server.js
 **This is not optional.** The test suite validates:
 - JSON Schema compliance (required for Claude API compatibility)
 - MCP protocol correctness
-- Functional behavior of all tools
+- Functional behavior of all tools with actual PDF reading
+
+**Note**: The test suite uses `sample.pdf` for functional tests. This file must exist in the project root to validate that PDF reading actually works. If `sample.pdf` is missing, functional tests will show warnings but compliance tests will still run.
 
 ### 2. Schema Compliance Requirements
 
@@ -161,10 +163,23 @@ Use this checklist for every change:
 - [ ] Made code changes
 - [ ] Ran `npm test`
 - [ ] All compliance tests passed
-- [ ] Functional tests behave as expected
+- [ ] Functional tests behave as expected (verify PDF reading works with sample.pdf)
+- [ ] Verified actual PDF content is extracted correctly
 - [ ] Updated documentation if needed
 - [ ] Committed changes with clear message
 - [ ] Pushed to remote repository
+
+## Sample PDF Requirement
+
+**Important**: The project must contain `sample.pdf` in the root directory for functional testing.
+
+- The test suite automatically uses `sample.pdf` if present
+- Tests validate that the MCP server can actually read PDF content
+- Without `sample.pdf`, you'll only see compliance tests passing
+- Functional tests prove the tools work end-to-end with real PDF files
+
+**When adding sample.pdf to .gitignore or removing it:**
+Make sure to document this and understand that functional tests won't validate actual PDF reading.
 
 ## Common Tasks
 

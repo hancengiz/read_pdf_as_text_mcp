@@ -128,16 +128,29 @@ async function testServer() {
 
     console.log("=== FUNCTIONAL TESTS ===");
 
+    // Check if sample.pdf exists
+    const samplePdfPath = path.join(__dirname, "sample.pdf");
+    let testPdfPath = samplePdfPath;
+
+    try {
+      const fs = await import("fs/promises");
+      await fs.access(samplePdfPath);
+      console.log("Using sample.pdf for functional tests\n");
+    } catch (error) {
+      console.warn("⚠️  sample.pdf not found - functional tests will show file errors\n");
+      testPdfPath = path.join(
+        __dirname,
+        "the-state-of-ai-how-organizations-are-rewiring-to-capture-value_final.pdf"
+      );
+    }
+
     // Test 1: Get PDF Metadata
     console.log("Test 1: Getting PDF metadata...");
     try {
       const metadataResult = await client.callTool({
         name: "pdf-metadata",
         arguments: {
-          file: path.join(
-            __dirname,
-            "the-state-of-ai-how-organizations-are-rewiring-to-capture-value_final.pdf"
-          ),
+          file: testPdfPath,
         },
       });
       console.log("✓ Metadata extraction successful:");
@@ -148,16 +161,13 @@ async function testServer() {
     }
 
     // Test 2: Search in PDF
-    console.log("Test 2: Searching for 'AI' in PDF...");
+    console.log("Test 2: Searching for text in PDF...");
     try {
       const searchResult = await client.callTool({
         name: "search-pdf",
         arguments: {
-          file: path.join(
-            __dirname,
-            "the-state-of-ai-how-organizations-are-rewiring-to-capture-value_final.pdf"
-          ),
-          query: "AI",
+          file: testPdfPath,
+          query: "the",
           case_sensitive: false,
         },
       });
@@ -175,10 +185,7 @@ async function testServer() {
       const readResult = await client.callTool({
         name: "read-pdf",
         arguments: {
-          file: path.join(
-            __dirname,
-            "the-state-of-ai-how-organizations-are-rewiring-to-capture-value_final.pdf"
-          ),
+          file: testPdfPath,
           clean_text: true,
           include_metadata: true,
         },
