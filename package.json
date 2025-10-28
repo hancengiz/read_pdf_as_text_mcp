@@ -1,6 +1,6 @@
 {
   "name": "@fabriqa.ai/pdf-reader-mcp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "MCP server for efficient PDF text extraction, search, and metadata retrieval for Claude Code",
   "type": "module",
   "main": "index.js",
