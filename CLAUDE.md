@@ -150,6 +150,48 @@ git commit -m "Add feature: [description]
 
 **Before committing:** Run `npm test` one final time.
 
+### 9. Publishing to npm
+
+**After pushing changes to git, ALWAYS ask the user if they want to publish to npm.**
+
+Use the provided publish script:
+
+```bash
+./publish.sh
+```
+
+The script will:
+1. Check for uncommitted changes
+2. Run all tests
+3. Ask for version bump (patch/minor/major)
+4. Commit version bump
+5. Run tests again
+6. Ask to publish to npm
+7. Ask to push to git
+
+**Manual publish (if needed):**
+
+```bash
+# Bump version
+npm version patch  # or minor/major
+
+# Run tests
+npm test
+
+# Publish
+npm publish
+
+# Push to git
+git push
+```
+
+**When to publish:**
+- After fixing bugs (patch)
+- After adding new features (minor)
+- After breaking changes (major)
+- After significant improvements
+- When user requests it
+
 ## Development Workflow Checklist
 
 Use this checklist for every change:
