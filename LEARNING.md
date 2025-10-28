@@ -6,21 +6,28 @@ This document captures key learnings and best practices discovered during the de
 
 ### NPX and Version Control
 
-**Learning**: Always use `@latest` tag with npx commands to ensure users get the most recent version.
+**Learning**: While npx is supposed to always fetch the latest version, we encountered caching issues in practice.
 
-**Why it matters**:
+**The Reality**:
 - npx caches packages locally in `~/.npm/_npx`
-- Without `@latest`, users might get stuck on old cached versions
-- The `@latest` tag forces npx to check for and download the newest version
+- In theory, npx should check for latest version automatically
+- In practice, we experienced cases where cached versions persisted
+- Adding `@latest` tag is a defensive measure to be explicit about version requirements
 
-**Best Practice**:
+**Our Approach (Belt and Suspenders)**:
 ```bash
-# ✅ Good - Always gets latest version
+# Using @latest explicitly (even though npx should do this anyway)
 claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp@latest
 
-# ❌ Avoid - May use cached older version
+# This should work the same way, but we experienced caching issues
 claude mcp add pdf-reader npx @fabriqa.ai/pdf-reader-mcp
 ```
+
+**Why we use @latest anyway**:
+- Explicit is better than implicit
+- Communicates intent clearly to users
+- Acts as insurance against cache-related edge cases
+- Minimal overhead, maximum clarity
 
 **Cache Clearing**:
 When testing new versions or experiencing version issues:
