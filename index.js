@@ -52,6 +52,7 @@ class PDFReaderServer {
           description:
             "Extract text from a PDF file. Returns the full text content of the PDF with optional page filtering and text cleaning.",
           inputSchema: {
+            $schema: "http://json-schema.org/draft-07/schema#",
             type: "object",
             properties: {
               file: {
@@ -62,20 +63,18 @@ class PDFReaderServer {
                 type: "string",
                 description:
                   "Page range (e.g., '1-5', '1,3,5', 'all'). Default: 'all'",
-                default: "all",
               },
               clean_text: {
                 type: "boolean",
                 description: "Clean and normalize extracted text. Default: false",
-                default: false,
               },
               include_metadata: {
                 type: "boolean",
                 description: "Include PDF metadata in output. Default: true",
-                default: true,
               },
             },
             required: ["file"],
+            additionalProperties: false,
           },
         },
         {
@@ -83,6 +82,7 @@ class PDFReaderServer {
           description:
             "Search for specific text within a PDF file. Returns matching text with context and page numbers.",
           inputSchema: {
+            $schema: "http://json-schema.org/draft-07/schema#",
             type: "object",
             properties: {
               file: {
@@ -96,15 +96,14 @@ class PDFReaderServer {
               case_sensitive: {
                 type: "boolean",
                 description: "Case sensitive search. Default: false",
-                default: false,
               },
               whole_word: {
                 type: "boolean",
                 description: "Match whole words only. Default: false",
-                default: false,
               },
             },
             required: ["file", "query"],
+            additionalProperties: false,
           },
         },
         {
@@ -112,6 +111,7 @@ class PDFReaderServer {
           description:
             "Extract metadata from a PDF file including title, author, page count, creation date, etc.",
           inputSchema: {
+            $schema: "http://json-schema.org/draft-07/schema#",
             type: "object",
             properties: {
               file: {
@@ -120,6 +120,7 @@ class PDFReaderServer {
               },
             },
             required: ["file"],
+            additionalProperties: false,
           },
         },
       ],

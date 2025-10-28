@@ -3,6 +3,7 @@
 /**
  * Test script for PDF Reader MCP Server
  * This simulates MCP client requests to test the server functionality
+ * and validates JSON schema compliance
  */
 
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -10,9 +11,63 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 import { spawn } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
+import Ajv from "ajv";
+import addFormats from "ajv-formats";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Initialize JSON Schema validator for draft-07
+const ajv = new Ajv({
+  strict: true,
+  allErrors: true,
+  verbose: true,
+});
+addFormats(ajv);
+
+/**
+ * Validate that a schema is a valid JSON Schema draft-07
+ */
+function validateSchemaCompliance(toolName, schema) {
+  console.log(`\nValidating schema compliance for: ${toolName}`);
+
+  // Check required fields
+  const requiredFields = ['$schema', 'type', 'properties', 'required'];
+  const missingFields = requiredFields.filter(field => !(field in schema));
+
+  if (missingFields.length > 0) {
+    console.error(`✗ Missing required fields: ${missingFields.join(', ')}`);
+    return false;
+  }
+
+  // Check $schema value
+  const validSchemaVersions = [
+    'http://json-schema.org/draft-07/schema#',
+    'https://json-schema.org/draft-07/schema#',
+  ];
+
+  if (!validSchemaVersions.includes(schema.$schema)) {
+    console.error(`✗ Invalid $schema value: ${schema.$schema}`);
+    console.error(`   Expected one of: ${validSchemaVersions.join(', ')}`);
+    return false;
+  }
+
+  // Validate the schema itself is valid JSON Schema
+  try {
+    const metaSchema = {
+      $schema: "http://json-schema.org/draft-07/schema#",
+      type: "object",
+    };
+
+    // Try to compile the schema with ajv
+    ajv.compile(schema);
+    console.log(`✓ Schema is valid JSON Schema draft-07`);
+    return true;
+  } catch (error) {
+    console.error(`✗ Schema validation failed: ${error.message}`);
+    return false;
+  }
+}
 
 async function testServer() {
   console.log("Starting PDF Reader MCP Server test...\n");
@@ -50,6 +105,28 @@ async function testServer() {
       console.log(`  - ${tool.name}: ${tool.description}`);
     });
     console.log();
+
+    // Compliance Testing: Validate all tool schemas
+    console.log("\n=== COMPLIANCE TESTS ===");
+    let allSchemasValid = true;
+    for (const tool of tools.tools) {
+      const isValid = validateSchemaCompliance(tool.name, tool.inputSchema);
+      if (!isValid) {
+        allSchemasValid = false;
+        console.error(`✗ Schema compliance check FAILED for: ${tool.name}\n`);
+      } else {
+        console.log(`✓ Schema compliance check PASSED for: ${tool.name}`);
+      }
+    }
+
+    if (!allSchemasValid) {
+      console.error("\n✗ Some schemas failed compliance checks!");
+      console.error("This would cause errors when used with Claude's API.\n");
+    } else {
+      console.log("\n✓ All schemas passed compliance checks!\n");
+    }
+
+    console.log("=== FUNCTIONAL TESTS ===");
 
     // Test 1: Get PDF Metadata
     console.log("Test 1: Getting PDF metadata...");
